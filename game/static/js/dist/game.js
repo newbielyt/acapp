@@ -184,9 +184,11 @@ class Player extends AcGameObject{
         this.color = color;
         this.speed = speed;
         this.is_me = is_me;
+        this.spent_time = 0;
         this.eps = 0.1;
         this.friction = 0.9;
         this.spent_time = 0;
+        //this.has_moved=false;
 
         this.cur_skill = null;
 
@@ -214,6 +216,7 @@ class Player extends AcGameObject{
         this.playground.game_map.$canvas.mousedown(function(e) {
             if (e.which === 3) {
                 outer.move_to(e.clientX, e.clientY);
+                //outer.has-moved=true;
             }
             else if(e.which===1){
                 if(outer.cur_skill==="fireball"){
@@ -251,6 +254,7 @@ class Player extends AcGameObject{
     }
 
     move_to(tx, ty) {
+//        if(this.is_me)this.has_moved=true;
         this.move_length = this.get_dist(this.x, this.y, tx, ty);
         let angle = Math.atan2(ty - this.y, tx - this.x);
         this.vx = Math.cos(angle);
@@ -283,9 +287,12 @@ class Player extends AcGameObject{
     }
 
     update(){
-        if(Math.random()<1.0/400.0 && !this.is_me){
+        this.spent_time += this.timedelta / 1000;
+        if(Math.random()<1.0/400.0 && !this.is_me&& this.spent_time > 4){
             this.shoot_fireball(this.playground.players[0].x,this.playground.players[0].y,this.color);
         }
+
+        console.log(this.has_moved);
 
         if(this.damage_speed > 10){
             this.vx=this.vy=0;
