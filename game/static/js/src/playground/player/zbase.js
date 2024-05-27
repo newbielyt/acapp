@@ -138,7 +138,7 @@ class Player extends AcGameObject{
                 this.vc=this.vy=0;
                 if(!this.is_me){
                     let tx = Math.random()*this.playground.width;
-                    let ty = Math.random()*this.playground.height;                                                                                                           this.move_to(tx,ty);
+                    let ty = Math.random()*this.playground.height;                                                                                                       this.move_to(tx,ty);
                 }
             }
             else {
