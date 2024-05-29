@@ -19,10 +19,10 @@ class AcGamePlayground {
     }
 
     get_random_color(){
-        //let colors = ["blue","red","pink","grey","green","yellow"];
-        //return colors[Math.floor(Math.random()*6)];
-        let colors = ["zx.jpg","yyx.jpg","lzy.jpg","qzh.jpg"];
-        return 'static/image/henau/'+colors[Math.floor(Math.random()*4)];
+        let colors = ["blue","red","pink","grey","green","yellow"];
+        return colors[Math.floor(Math.random()*6)];
+        //let colors = ["zx.jpg","yyx.jpg","lzy.jpg","qzh.jpg"];
+        //return 'static/image/henau/'+colors[Math.floor(Math.random()*4)];
     }
 
     start(){
