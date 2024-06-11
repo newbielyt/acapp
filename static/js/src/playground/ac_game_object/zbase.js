@@ -28,6 +28,7 @@ class AcGameObject{
     }
 
     destroy(){  //删掉该物体
+        this.on_destroy();
         for(let i=0;i < AC_GAME_OBJECTS.length;i++){
             if(AC_GAME_OBJECTS[i]===this){
                 AC_GAME_OBJECTS.splice(i,1);

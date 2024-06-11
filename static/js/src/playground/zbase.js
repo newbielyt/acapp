@@ -47,10 +47,17 @@ class AcGamePlayground {
 
     show(mode){    //打开playground界面
         let outer = this;
+        this.mode = mode;
+        
+        this.player_count = 0;
+
         this.$playground.show();
         this.width = this.$playground.width();
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);
+
+        this.state = "Waiting";   //'waiting' -> 'fighting' -> 'over'  三种状态
+        this.notice_board = new NoticeBoard(this);
 
         this.resize();
 
