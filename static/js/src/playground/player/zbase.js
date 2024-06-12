@@ -32,11 +32,11 @@ class Player extends AcGameObject {
             this.img.src = this.photo;
         }
         if(this.character === "me"){
-            this.fireball_coldtime = 3;   //单位秒
+            this.fireball_coldtime = 0;   //单位秒
             this.fireball_img = new Image();
             this.fireball_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_9340c86053-fireball.png";
 
-            this.blink_coldtime = 5;  // 单位：秒
+            this.blink_coldtime = 0;  // 单位：秒
             this.blink_img = new Image();
             this.blink_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_daccabdc53-blink.png";
 
@@ -69,7 +69,7 @@ class Player extends AcGameObject {
         this.playground.game_map.$canvas.mousedown(function(e) {
             if(outer.playground.state !== "Fighting"){
                 console.log(this.fireball_coldtime);
-                return false;
+                return true;
             }
 
             const rect = outer.ctx.canvas.getBoundingClientRect();
@@ -111,7 +111,19 @@ class Player extends AcGameObject {
             }
         });
 
-        $(window).keydown(function(e) {
+        this.playground.game_map.$canvas.keydown(function(e) {
+            if(e.which === 13){
+                if(outer.playground.mode === "multi mode"){
+                    outer.playground.chat_field.show_input();
+                    return false;
+                }
+            }else if(e.which === 27){
+                console.log("ESCESC");
+                if(outer.playground.mode === "multi mode"){
+                    outer.playground.chat_field.hide_input();
+                    return false;
+                }
+            }
             if(outer.playground.state !== "Fighting"){
                 return true;
             }
@@ -143,7 +155,7 @@ class Player extends AcGameObject {
         if(this.die == false){
             let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
             this.fireballs.push(fireball);
-            if(this.playground.mode === "multi mode")this.fireball_coldtime = 3;
+            if(this.playground.mode === "multi mode")this.fireball_coldtime = 0;
             return fireball;
         }
     }
@@ -155,7 +167,7 @@ class Player extends AcGameObject {
         this.x += d * Math.cos(angle);
         this.y += d * Math.sin(angle);
 
-        this.blink_coldtime = 5;
+        this.blink_coldtime = 0;
         this.move_length = 0;  // 闪现完停下来
 
     }

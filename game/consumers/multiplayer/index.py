@@ -8,7 +8,6 @@ class MultiPlayer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
-        print('disconnect')
         await self.channel_layer.group_discard(self.room_name, self.channel_name);
 
 
@@ -113,6 +112,17 @@ class MultiPlayer(AsyncWebsocketConsumer):
                 'ty': data['ty'],
             }
         )
+    async def message(self, data):
+        print(data)
+        await self.channel_layer.group_send(
+                self.room_name,
+                {
+                    'type':"group_send_event",
+                    'event':"message",
+                    'uuid':data['uuid'],
+                    'text':data['text'],
+                }
+        )
 
 
     async def receive(self, text_data):
@@ -128,4 +138,5 @@ class MultiPlayer(AsyncWebsocketConsumer):
             await self.attack(data)
         elif event == "blink":
             await self.blink(data)
-
+        elif event == "message":
+            await self.message(data)
